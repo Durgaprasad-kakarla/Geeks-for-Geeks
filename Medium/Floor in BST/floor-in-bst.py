@@ -16,6 +16,8 @@ class Solution:
             return -1
         else:
             return ans
+''' Time Complexity--O(logn)  
+    Space Complexity--O(1)'''
 
 #{ 
  # Driver Code Starts
