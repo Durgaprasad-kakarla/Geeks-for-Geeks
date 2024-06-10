@@ -3,15 +3,8 @@ class Solution:
 
 	def matchPairs(self, n, nuts, bolts):
 		# code here
-		l=['!','#','$','%','&','*','?','@','^']
-		new_nuts,new_bolts=[],[]
-		for i in range(9):
-		    if l[i] in nuts:
-		        new_nuts.append(l[i])
-		for i in range(n):
-		    nuts[i]=new_nuts[i]
-		    bolts[i]=new_nuts[i]
-		
+	    nuts.sort()
+	    bolts.sort()
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
