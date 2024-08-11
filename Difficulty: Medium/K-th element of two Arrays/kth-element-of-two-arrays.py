@@ -2,29 +2,35 @@
 
 class Solution:
     def kthElement(self, k, arr1, arr2):
-        i,j=0,0
-        m,n=len(arr1),len(arr2)
-        cnt=1
-        while i<m and j<n:
-            if arr1[i]<arr2[j]:
-                if cnt==k:
-                    return arr1[i]
-                i+=1
+        n1,n2=len(arr1),len(arr2)
+        if n1>n2:
+            return self.kthElement(k,arr2,arr1)
+        left=k-1
+        l,r=0,n1
+        while l<=r:
+            mid1=(l+r)//2
+            mid2=left-mid1
+            if mid2<0:
+                r=mid1-1
+                continue
+            if mid2>n2:
+                l=mid1+1
+                continue
+            l1,l2,r1,r2=-float('inf'),-float('inf'),float('inf'),float('inf')
+            if mid1<n1:
+                r1=arr1[mid1]
+            if mid2<n2:
+                r2=arr2[mid2]
+            if mid1-1>=0:
+                l1=arr1[mid1-1]
+            if mid2-1>=0:
+                l2=arr2[mid2-1]
+            if l1<=r2 and l2<=r1:
+                return min(r1,r2)
+            elif l1>r2:
+                r=mid1-1
             else:
-                if cnt==k:
-                    return arr2[j]
-                j+=1
-            cnt+=1
-        while i<m:
-            if cnt==k:
-                return arr1[i]
-            cnt+=1
-            i+=1
-        while j<n:
-            if cnt==k:
-                return arr2[j]
-            cnt+=1
-            j+=1
+                l=mid1+1
         return -1
         
 
