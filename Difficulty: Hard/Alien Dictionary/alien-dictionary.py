@@ -1,8 +1,10 @@
 #User function Template for python3
 
+from typing import List
+
 class Solution:
-    def findOrder(self,dic, n, k):
-        # code here
+    def findOrder(self, dic: List[str], n: int, k: int) -> str:
+        # Your implementation here
         adj=[[] for i in range(k)]
         for ind in range(1,n):
             prev=dic[ind-1]
@@ -33,39 +35,45 @@ class Solution:
         return alien_order
 
 
+
+
+
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
 
+
 class sort_by_order:
-    def __init__(self,s):
+
+    def __init__(self, s):
         self.priority = {}
         for i in range(len(s)):
             self.priority[s[i]] = i
-    
-    def transform(self,word):
+
+    def transform(self, word):
         new_word = ''
         for c in word:
-            new_word += chr( ord('a') + self.priority[c] )
+            new_word += chr(ord('a') + self.priority[c])
         return new_word
-    
-    def sort_this_list(self,lst):
-        lst.sort(key = self.transform)
+
+    def sort_this_list(self, lst):
+        lst.sort(key=self.transform)
+
 
 if __name__ == '__main__':
-    t=int(input())
+    t = int(input())
     for _ in range(t):
-        line=input().strip().split()
-        n=int(line[0])
-        k=int(line[1])
-        
+        line = input().strip().split()
+        n = int(line[0])
+        k = int(line[1])
+
         alien_dict = [x for x in input().strip().split()]
         duplicate_dict = alien_dict.copy()
-        ob=Solution()
-        order = ob.findOrder(alien_dict,n,k)
+        ob = Solution()
+        order = ob.findOrder(alien_dict, n, k)
         s = ""
         for i in range(k):
-            s += chr(97+i)
+            s += chr(97 + i)
         l = list(order)
         l.sort()
         l = "".join(l)
@@ -74,11 +82,10 @@ if __name__ == '__main__':
         else:
             x = sort_by_order(order)
             x.sort_this_list(duplicate_dict)
-            
+
             if duplicate_dict == alien_dict:
                 print(1)
             else:
                 print(0)
-
 
 # } Driver Code Ends
