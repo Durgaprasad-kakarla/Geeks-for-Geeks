@@ -3,14 +3,7 @@
 class Solution:
 	def nthStair(self,n):
 		# Code here
-		dp=[0]*(n+1)
-		dp[0],dp[1]=0,1
-		for i in range(2,n+1):
-		    if i&1==0:
-		        dp[i]=dp[i-1]+1
-		    else:
-		        dp[i]=dp[i-1]
-		return dp[n]
+		return n//2+1
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
