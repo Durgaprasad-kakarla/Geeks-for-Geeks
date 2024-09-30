@@ -6,7 +6,7 @@
 #User function Template for python3
 class Solution:
     def merge(self, root1, root2):
-        # code 
+        # code here
         nums1=[]
         def inorder(root):
             if root:
