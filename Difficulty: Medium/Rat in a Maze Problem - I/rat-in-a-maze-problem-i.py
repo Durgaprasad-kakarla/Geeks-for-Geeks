@@ -1,10 +1,11 @@
-from typing import List
-
+#User function Template for python3
 class Solution:
-    def findPath(self, mat: List[List[int]]) -> List[str]:
+    # Function to find all possible paths
+    def findPath(self, mat):
         # code here
-        n,m=len(mat),len(mat[0])
-        def dfs(row,col,vis,mat,s):
+        if mat[0][0]==0:
+            return []
+        def dfs(row,col,vis,s):
             if row==n-1 and col==m-1:
                 ans.append(s)
                 return 
@@ -16,31 +17,35 @@ class Solution:
                 nrow=row+dr[i]
                 ncol=col+dc[i]
                 if nrow>=0 and ncol>=0 and nrow<n and ncol<m and not vis[nrow][ncol] and mat[nrow][ncol]==1:
-                    dfs(nrow,ncol,vis,mat,s+dir[i])
+                    dfs(nrow,ncol,vis,s+dir[i])
             vis[row][col]=0
         ans=[]
+        n,m=len(mat),len(mat[0])
         vis=[[0 for i in range(m)] for j in range(n)]
-        if mat[0][0]==0:
-            return []
-        dfs(0,0,vis,mat,"")
-        return ans
+        dfs(0,0,vis,'')
+        return sorted(ans)
+        
+        
+
+
 
 
 #{ 
  # Driver Code Starts
-# Main function to read input and output the results
+#Initial Template for Python 3
+
 if __name__ == "__main__":
     t = int(input().strip())
+
     for _ in range(t):
-        n = int(input().strip())
-        m = []
-        for i in range(n):
-            m.append(list(map(int, input().strip().split())))
-        obj = Solution()
-        result = obj.findPath(m)
-        result.sort()
-        if len(result) == 0:
-            print(-1)
+        input_line = input().strip()
+        mat = eval(input_line)
+
+        solution = Solution()
+        result = solution.findPath(mat)
+
+        if not result:
+            print("[]")
         else:
             print(" ".join(result))
         print("~")
