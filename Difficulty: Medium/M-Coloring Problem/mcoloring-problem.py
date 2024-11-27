@@ -3,31 +3,28 @@
 class Solution:
     def graphColoring(self, v, edges, m):
         # code here
-        color=[-1]*v
+        color=[-1 for i in range(v)]
         adj=[[] for i in range(v)]
         for i,j in edges:
             if i!=j:
                 adj[i].append(j)
                 adj[j].append(i)
-        def issafe(node,i,adj):
-            for j in adj[node]:
-                if color[j]==i:
+        def issafe(node,col):
+            for i in adj[node]:
+                if color[i]==col:
                     return False
             return True
-        def dfs(node,color,adj,n):
-            if node==n:
+        def dfs(node,color):
+            if node==v:
                 return True
             for i in range(m):
-                if issafe(node,i,adj):
+                if issafe(node,i):
                     color[node]=i
-                    if dfs(node+1,color,adj,n):
+                    if dfs(node+1,color):
                         return True
                     color[node]=-1
             return False
-        return dfs(0,color,adj,v)
-                    
-        
-
+        return dfs(0,color)
 
 #{ 
  # Driver Code Starts
