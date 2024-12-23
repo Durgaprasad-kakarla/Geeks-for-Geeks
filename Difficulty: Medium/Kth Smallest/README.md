@@ -1,12 +1,12 @@
-<h2><a href="https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1">Kth Smallest</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 12pt;">Given an array <strong>arr[]</strong> and an integer&nbsp;<strong>k</strong> where k is smaller than the size of the array, the task is to find the <strong>k<sup>th</sup> smallest</strong> element in the given array. It is given that all array elements are distinct.</span></p>
+<h2><a href="https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=kth-smallest-element">Kth Smallest</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 12pt;">Given an array <strong>arr[]</strong> and an integer&nbsp;<strong>k</strong> where k is smaller than the size of the array, the task is to find the <strong>k<sup>th</sup> smallest</strong> element in the given array.</span></p>
 <p><span style="font-size: 12pt;"><strong>Follow up:</strong> Don't solve it using the inbuilt sort function.</span></p>
 <p><span style="font-size: 12pt;"><strong>Examples :</strong></span></p>
 <pre><span style="font-size: 12pt;"><strong>Input: </strong>arr[] = [7, 10, 4, 3, 20, 15], k = 3
 <strong>Output:</strong>  7
 <strong>Explanation: </strong>3rd smallest element in the given array is 7.
 </span></pre>
-<pre><span style="font-size: 12pt;"><strong>Input: </strong>arr[] = [7, 10, 4, 20, 15], k = 4 
-<strong>Output:</strong>  15
+<pre><span style="font-size: 12pt;"><strong>Input: </strong>arr[] = [2, 3, 1, 20, 15], k = 4 
+<strong>Output:</strong> 15
 <strong>Explanation: </strong>4th smallest element in the given array is 15.</span></pre>
 <div><span style="font-size: 12pt;"><strong>Expected Time Complexity: </strong>O(n+(max_element) )</span></div>
 <div><span style="font-size: 12pt;"><strong>Expected Auxiliary Space: </strong>O(max_element)</span></div>
