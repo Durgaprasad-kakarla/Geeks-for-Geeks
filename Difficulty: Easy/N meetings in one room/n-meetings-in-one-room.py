@@ -4,24 +4,19 @@ class Solution:
     
     #Function to find the maximum number of meetings that can
     #be performed in a meeting room.
-    def maximumMeetings(self,N,start,end):
+    def maximumMeetings(self,start,end):
         # code here
         arr=[]
-        for i in range(N):
+        n=len(start)
+        for i in range(n):
             arr.append([start[i],end[i]])
-        dic={}
-        for i in range(N):
-            if (arr[i][0],arr[i][1]) not in dic:
-                dic[(arr[i][0],arr[i][1])]=i+1
-        arr=sorted(arr,key=lambda x:x[1])
-        cnt=0
-        ele=-1
-        for i in range(N):
-            if arr[i][0]>ele:
+        arr.sort(key=lambda x:x[1])
+        end,cnt=arr[0][1],1
+        for i in range(1,n):
+            if arr[i][0]>end:
+                end=arr[i][1]
                 cnt+=1
-                ele=arr[i][1]
         return cnt
-
 
 
 #{ 
@@ -35,10 +30,11 @@ import sys
 
 if __name__ == '__main__':
     test_cases = int(input())
-    for cases in range(test_cases) :
-        n = int(input())
-        start = list(map(int,input().strip().split()))
-        end = list(map(int,input().strip().split()))
-        ob=Solution()
-        print(ob.maximumMeetings(n,start,end))
+    for cases in range(test_cases):
+        start = list(map(int, input().strip().split()))
+        end = list(map(int, input().strip().split()))
+        ob = Solution()
+        print(ob.maximumMeetings(start, end))
+        print("~")
+
 # } Driver Code Ends
