@@ -5,15 +5,15 @@ class Solution:
     #railway station such that no train waits.
     def minimumPlatform(self,arr,dep):
         # code here
-        heap=[]
-        n=len(arr)
         arr_dep=[]
+        n=len(arr)
         for i in range(n):
             arr_dep.append([arr[i],dep[i]])
         arr_dep.sort()
+        heap=[]
         maxi=0
         for i in range(n):
-            while heap and heap[0]<arr_dep[i][0]:
+            while heap and arr_dep[i][0]>heap[0]:
                 heapq.heappop(heap)
             heapq.heappush(heap,arr_dep[i][1])
             maxi=max(maxi,len(heap))
