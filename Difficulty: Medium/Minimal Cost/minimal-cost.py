@@ -7,20 +7,20 @@
 class Solution:
     def minimizeCost(self, k, arr):
         # code here
-        def func(ind,k,dp):
+        n=len(arr)
+        def func(ind):
             if ind==0:
                 return 0
             if dp[ind]!=-1:
                 return dp[ind]
             mini=float('inf')
             for i in range(1,k+1):
-                if (ind-i)>=0:
-                    mini=min(mini,abs(arr[ind]-arr[ind-i])+func(ind-i,k,dp))
+                if ind-i>=0:
+                    mini=min(mini,abs(arr[ind]-arr[ind-i])+func(ind-i))
             dp[ind]=mini
             return mini
-        n=len(arr)
         dp=[-1]*n
-        return func(n-1,k,dp)
+        return func(n-1)
 
 #{ 
  # Driver Code Starts.
@@ -34,6 +34,7 @@ if __name__ == "__main__":
         ob = Solution()
         res = ob.minimizeCost(k,arr)
         print(res)
+        print("~")
         t -= 1
 
 
