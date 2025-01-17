@@ -1,24 +1,20 @@
 #User function Template for python3
 
 class Solution:
-    def productExceptSelf(self, nums):
+    def productExceptSelf(self, arr):
         #code here
-        n=len(nums)
-        if n==1:
-            return [1]
-        suff=[0]*(n)
-        suff[n-1]=nums[n-1]
+        n=len(arr)
+        suff=[0]*n
+        suff[n-1]=arr[n-1]
         for i in range(n-2,-1,-1):
-            suff[i]=nums[i]*suff[i+1]
-        pref=nums[0]
-        arr=[0]*n
-        arr[0]=suff[1]
+            suff[i]=suff[i+1]*arr[i]
+        res=[0]*n
+        res[0],pref=suff[1],arr[0]
         for i in range(1,n-1):
-            arr[i]=suff[i+1]*pref
-            pref*=nums[i]
-        arr[n-1]=pref
-        return arr
-
+            res[i]=suff[i+1]*pref
+            pref=pref*arr[i]
+        res[n-1]=pref
+        return res
 
 #{ 
  # Driver Code Starts
@@ -28,10 +24,11 @@ if __name__ == '__main__':
     t = int(input())
 
     for _ in range(t):
-        n = int(input())
+
         arr = [int(x) for x in input().split()]
 
         ans = Solution().productExceptSelf(arr)
         print(*ans)
+        print("~")
 
 # } Driver Code Ends
