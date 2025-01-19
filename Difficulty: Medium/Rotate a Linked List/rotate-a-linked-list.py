@@ -15,28 +15,21 @@ class Solution:
     #Function to rotate a linked list.
     def rotate(self, head, k):
         # code here
-        temp=head
-        cnt=0
-        prev=None
-        while temp:
+        last,cnt=head,1
+        while last.next:
+            last=last.next
             cnt+=1
-            prev=temp
-            temp=temp.next
         k=k%cnt
-        if k==0:
-            return head
-        new_head=None
-        temp=head
-        while temp:
-            if k==1:
-                new_head=temp.next
-                temp.next=None
-                break
-            temp=temp.next
+        while k>0:
+            temp=head
+            head=head.next
+            temp.next=None
+            last.next=temp
+            last=last.next
             k-=1
-        prev.next=head
-        return new_head
-
+        return head
+            
+        
 
 
 #{ 
@@ -86,6 +79,7 @@ if __name__ == "__main__":
         idx += 2
         head = Solution().rotate(head, k)
         printList(head)
+        print("~")
         t -= 1
 
 # } Driver Code Ends
