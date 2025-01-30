@@ -60,17 +60,20 @@ if __name__ == '__main__':
     t = int(input())
     for _ in range(t):
         n = int(input())
-        
+
         ob = Solution()
         ans = ob.nQueen(n)
-        if(len(ans) == 0):
+        if (len(ans) == 0):
             print("-1")
         else:
+            ans.sort()
             for i in range(len(ans)):
-                print("[",end="")
+                print("[", end="")
                 for j in range(len(ans[i])):
-                    print(ans[i][j],end = " ")
-                print("]",end = " ")
+                    print(ans[i][j], end=" ")
+                print("]", end=" ")
             print()
-                
+
+        print("~")
+
 # } Driver Code Ends
