@@ -1,18 +1,27 @@
 #User function Template for python3
-import sys
+
 
 class Solution:
     
     #Function to check whether a Binary Tree is BST or not.
     def isBST(self, root):
         #code here
-        def isvalid(root,min1,max1):
-            if root is None:
+        global prev
+        prev=None
+        def inorder(root):
+            global prev
+            if not root:
                 return True
-            if root.data>=max1 or root.data<=min1:
+            if not inorder(root.left):
                 return False
-            return  isvalid(root.left,min1,root.data) and isvalid(root.right,root.data,max1)
-        return isvalid(root,sys.maxsize*(-1),sys.maxsize)
+            if prev is not None:
+                if prev>root.data:
+                    return False
+            prev=root.data
+            if not inorder(root.right):
+                return False
+            return True
+        return inorder(root)
 
 
 
@@ -99,5 +108,6 @@ if __name__ == "__main__":
             print("true")
         else:
             print("false")
+        print("~")
 
 # } Driver Code Ends
