@@ -1,9 +1,6 @@
-#User function Template for python3
 
 class Solution:
-    
-    #Function to check if brackets are balanced or not.
-    def ispar(self,s):
+    def isBalanced(self, s):
         # code here
         dic={')':'(','}':'{',']':'['}
         stack=[]
@@ -39,14 +36,12 @@ def write():
 if __name__ == '__main__':
     test_cases = int(input())
     for cases in range(test_cases):
-        #n = int(input())
-        #n,k = map(int,imput().strip().split())
-        #a = list(map(int,input().strip().split()))
         s = str(input())
         obj = Solution()
-        if obj.ispar(s):
-            print("balanced")
+        if obj.isBalanced(s):
+            print("true")
         else:
-            print("not balanced")
+            print("false")
+        print("~")
 
 # } Driver Code Ends
