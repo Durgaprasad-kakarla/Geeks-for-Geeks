@@ -1,4 +1,3 @@
-# User function Template for Python3
 
 class Solution:
     def maxLength(self, s):
@@ -16,9 +15,6 @@ class Solution:
             else:
                 stack.append([i,s[i]])
         return maxi
-                
-        
-
 
 #{ 
  # Driver Code Starts
@@ -31,5 +27,6 @@ if __name__ == '__main__':
 
         ob = Solution()
         print(ob.maxLength(S))
+        print("~")
 
 # } Driver Code Ends
