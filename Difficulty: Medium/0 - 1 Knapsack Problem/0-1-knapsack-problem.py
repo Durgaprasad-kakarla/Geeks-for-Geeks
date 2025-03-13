@@ -1,10 +1,6 @@
-#User function Template for python3
-
 class Solution:
-    
-    #Function to return max value that can be put in knapsack of capacity W.
-    def knapSack(self,W, wt, val):
-       
+    def knapsack(self, W, val, wt):
+        # code here
         def func(ind,W,dp):
             if ind<0:
                 return 0
@@ -22,19 +18,13 @@ class Solution:
 
 #{ 
  # Driver Code Starts
-#Initial Template for Python 3
-import atexit
-import io
-import sys
-
 if __name__ == '__main__':
     test_cases = int(input())
-    for cases in range(test_cases):
-        # n = int(input())
-        W = int(input())
-        val = list(map(int, input().strip().split()))
-        wt = list(map(int, input().strip().split()))
+    for _ in range(test_cases):
+        capacity = int(input())
+        values = list(map(int, input().strip().split()))
+        weights = list(map(int, input().strip().split()))
         ob = Solution()
-        print(ob.knapSack(W, wt, val))
-
+        print(ob.knapsack(capacity, values, weights))
+        print("~")
 # } Driver Code Ends
