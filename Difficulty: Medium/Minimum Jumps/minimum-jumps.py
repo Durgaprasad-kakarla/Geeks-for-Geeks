@@ -1,32 +1,28 @@
-#User function Template for python3
 class Solution:
 	def minJumps(self, arr):
-	    #code here
-	    n=len(arr)
-	    i=1
-	    start=arr[0]
-	    if start==0:
-	        return -1
-	    if start>=n-1:
-	        return 1
-	    jumps=0
-	    while i<n:
-	        maxi,index=-float('inf'),-1
-	        while start>0 and i<n:
-	            if maxi<(i+arr[i]):
-	                maxi=i+arr[i]
-	                index=i
-	            i+=1
-	            start-=1
-	        jumps+=1
-	        if index==-1:
-	            return -1
-	        if maxi>=n-1:
-	            return jumps+1
-            start=arr[index]
-            i=index+1
-	    return -1
-
+	    # code here
+        n=len(arr)
+        if arr[0]==0:
+            return -1
+        if arr[0]>=n-1:
+            return 1
+        dp=[0]*n
+        i,cnt=1,1
+        while i<n:
+            ind=-1
+            maxi=-float('inf')
+            for j in range(i,i+arr[i-1]):
+                if maxi<arr[j]+j:
+                    maxi=arr[j]+j
+                    ind=j
+            if maxi==-float('inf'):
+                return -1
+            if maxi>=n-1:
+                return cnt+1
+            i=ind+1
+            cnt+=1
+        return cnt
+        
 
 #{ 
  # Driver Code Starts
@@ -39,5 +35,5 @@ if __name__ == '__main__':
         ob = Solution()
         ans = ob.minJumps(Arr)
         print(ans)
-
+        print("~")
 # } Driver Code Ends
