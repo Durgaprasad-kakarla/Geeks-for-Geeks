@@ -1,21 +1,20 @@
-#User function Template for python3
-
 class Solution:
     def isSubsetSum (self, arr, target):
         # code here 
         n=len(arr)
-        dp=[[False for i in range(target+1)] for j in range(n+1)]
-        for i in range(n):
-            dp[i][0]=True
+        prev=[False for i in range(target+1)]
+        prev[0]=True
         for i in range(1,n+1):
+            curr=[False for _ in range(target+1)]
+            curr[0]=True
             for j in range(1,target+1):
                 l=False
                 if j>=arr[i-1]:
-                    l=dp[i-1][j-arr[i-1]]
-                r=dp[i-1][j]
-                dp[i][j]=l or r
-        return dp[n][target]
-        
+                    l=prev[j-arr[i-1]]
+                r=prev[j]
+                curr[j]=l or r
+            prev=curr
+        return prev[target]
         
 
 
