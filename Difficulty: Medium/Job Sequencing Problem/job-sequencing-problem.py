@@ -1,61 +1,32 @@
-#User function Template for python3
-'''
-class Job:
-    
-    # Job class which stores profit and deadline.
-    
-    def __init__(self,profit=0,deadline=0):
-        self.profit = profit
-        self.deadline = deadline
-        self.id = 0
-'''        
-import heapq
 class Solution:
-    
-    #Function to find the maximum profit and the number of jobs done.
-    def JobScheduling(self,jobs,n):
-        heap=[]
-        jobs.sort(key=lambda x:x.deadline)
-        for job in jobs:
-            heapq.heappush(heap,job.profit)
-            while len(heap)>job.deadline:
+    def jobSequencing(self, deadline, profit):
+        # code here
+        n=len(deadline)
+        heap,arr=[],[]
+        for i in range(n):
+            arr.append([deadline[i],profit[i]])
+        arr.sort()
+        for job in arr:
+            heapq.heappush(heap,job[1])
+            while len(heap)>job[0]:
                 heapq.heappop(heap)
         return len(heap),sum(heap)
-
-
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
-import atexit
-import io
-import sys
+import heapq
 
+#Position this line where user code will be pasted.
 
-#Contributed by : Nagendra Jha
-class Job:
-    '''
-    Job class which stores profit and deadline.
-    '''
+if __name__ == "__main__":
+    t = int(input().strip())
 
-    def __init__(self, profit=0, deadline=0):
-        self.profit = profit
-        self.deadline = deadline
-        self.id = 0
+    for _ in range(t):
+        deadline = list(map(int, input().strip().split()))
+        profit = list(map(int, input().strip().split()))
 
-
-if __name__ == '__main__':
-    test_cases = int(input())
-    for cases in range(test_cases):
-        n = int(input())
-        info = list(map(int, input().strip().split()))
-        Jobs = [Job() for i in range(n)]
-        for i in range(n):
-            Jobs[i].id = info[3 * i]
-            Jobs[i].deadline = info[3 * i + 1]
-            Jobs[i].profit = info[3 * i + 2]
-        ob = Solution()
-        res = ob.JobScheduling(Jobs, n)
-        print(res[0], end=" ")
-        print(res[1])
-
+        obj = Solution()
+        ans = obj.jobSequencing(deadline, profit)
+        print(ans[0], ans[1])
+        print("~")
 # } Driver Code Ends
