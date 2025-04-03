@@ -1,9 +1,12 @@
-from typing import List
-from collections import deque
+
 class Solution:
-    #Function to detect cycle in an undirected graph.
-	def isCycle(self, V: int, adj: List[List[int]]) -> bool:
+	def isCycle(self, n, edges):
 		#Code here
+		adj=[[] for i in range(n)]
+		for u,v in edges:
+		    adj[u].append(v)
+		    adj[v].append(u)
+		vis=[0 for _ in range(n)]
 		def dfs(node,parent):
 		    vis[node]=1
 		    for i in adj[node]:
@@ -13,33 +16,34 @@ class Solution:
 		        elif parent!=i:
 		            return True
 		    return False
-	    vis=[0 for i in range(V)]
-	    for i in range(V):
-	        if not vis[i]:
-	            if dfs(i,-1):
-	                return True
-	    return False
-            
-
-
+		for i in range(n):
+		    if not vis[i]:
+		        if dfs(i,-1):
+		            return True
+		return False
 #{ 
  # Driver Code Starts
+import sys
+#Position this line where user code will be pasted.
 
-if __name__ == '__main__':
 
-	T=int(input())
-	for i in range(T):
-		V, E = map(int, input().split())
-		adj = [[] for i in range(V)]
-		for _ in range(E):
-			u, v = map(int, input().split())
-			adj[u].append(v)
-			adj[v].append(u)
-		obj = Solution()
-		ans = obj.isCycle(V, adj)
-		if(ans):
-			print("1")
-		else:
-			print("0")
+def main():
+    tc = int(input())
+    for _ in range(tc):
+        V = int(input())
+        E = int(input())
+        edges = []
+        for _ in range(E):
+            u, v = map(int, input().split())
+            edges.append((u, v))
+
+        obj = Solution()
+        ans = obj.isCycle(V, edges)
+        print("true" if ans else "false")
+        print("~")
+
+
+if __name__ == "__main__":
+    main()
 
 # } Driver Code Ends
