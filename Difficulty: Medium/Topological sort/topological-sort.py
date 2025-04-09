@@ -1,27 +1,23 @@
-from collections import deque
 class Solution:
     
     def topoSort(self, V, edges):
         # Code here
+        def dfs(node):
+            vis[node]=1
+            for i in adj[node]:
+                if not vis[i]:
+                    dfs(i)
+            topo.append(node)
+        vis=[0 for _ in range(V)]
         adj=[[] for i in range(V)]
-        indegree=[0]*V
         for u,v in edges:
             adj[u].append(v)
-            adj[v].append(u)
-            indegree[v]+=1
-        queue=deque()
-        for i in range(V):
-            if indegree[i]==0:
-                queue.append(i)
         topo=[]
-        while queue:
-            node=queue.popleft()
-            topo.append(node)
-            for i in adj[node]:
-                indegree[i]-=1
-                if indegree[i]==0:
-                    queue.append(i)
-        return topo
+        for i in range(V):
+            if not vis[i]:
+                dfs(i)
+        return topo[::-1]
+
 
 #{ 
  # Driver Code Starts
@@ -50,6 +46,7 @@ def main():
     for _ in range(tc):
         V = int(input())
         E = int(input())
+        x = V
         edges = []
         adj = [[] for i in range(V)]
         for _ in range(E):
@@ -60,7 +57,7 @@ def main():
         obj = Solution()
         res = obj.topoSort(V, edges)
 
-        if check(adj, V, res):
+        if check(adj, x, res):
             print("true")
         else:
             print("false")
