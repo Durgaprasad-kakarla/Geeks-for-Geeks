@@ -1,91 +1,101 @@
-#User function Template for python3
-
-from typing import List
-
-class Solution:
-    def findOrder(self, dic: List[str], n: int, k: int) -> str:
-        # Your implementation here
-        adj=[[] for i in range(k)]
-        for ind in range(1,n):
-            prev=dic[ind-1]
-            curr=dic[ind]
-            for i in range(min(len(prev),len(curr))):
-                if prev[i]!=curr[i]:
-                    adj[ord(prev[i])-97].append(ord(curr[i])-97)
-                    break
-        # print(adj)
-        def dfs(node,vis,stack,adj):
-            vis[node]=1
-            for i in adj[node]:
-                if not vis[i]:
-                    dfs(i,vis,stack,adj)
-            stack.append(node)
-        def topological_sort(adj):
-            n=len(adj)
-            vis=[0 for i in range(n)]
-            stack=[]
-            for i in range(n):
-                if not vis[i]:
-                    dfs(i,vis,stack,adj)
-            return stack[::-1]
-        topo=(topological_sort(adj))
-        alien_order=[]
-        for i in topo:
-            alien_order.append(chr(97+i))
-        return alien_order
-
-
-
-
-
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
+import sys
 
 
-class sort_by_order:
+# } Driver Code Ends
 
-    def __init__(self, s):
-        self.priority = {}
-        for i in range(len(s)):
-            self.priority[s[i]] = i
+#User function Template for python3
+from collections import deque
+class Solution:
+    def findOrder(words):
+        # code here
+        n=len(words)
+        st=set()
+        for i in range(n):
+            for j in range(len(words[i])):
+                st.add(ord(words[i][j])-97)
+        adj=[[] for i in range(26)]
+        indegree=[0]*26
+        for i in range(1,n):
+            word1,word2=words[i-1],words[i]
+            len1,len2=len(word1),len(word2)
+            flag=0
+            for j in range(min(len1,len2)):
+                if word1[j]!=word2[j]:
+                    adj[ord(word1[j])-97].append(ord(word2[j])-97)
+                    indegree[ord(word2[j])-97]+=1
+                    flag=1
+                    break
+            if flag==0:
+                if len1>len2:
+                    return ""
+        # print(st)
+        topo=[]
+        queue=deque()
+        for i in range(26):
+            # print(indegree[i],i in st)
+            if indegree[i]==0 and i in st:
+                queue.append(i)
+        # print(queue)
+        while queue:
+            node=queue.popleft()
+            topo.append(chr(97+node))
+            for i in adj[node]:
+                indegree[i]-=1
+                if indegree[i]==0:
+                    queue.append(i)
+        return "".join(topo) if len(topo)==len(st) else ""
 
-    def transform(self, word):
-        new_word = ''
-        for c in word:
-            new_word += chr(ord('a') + self.priority[c])
-        return new_word
+#{ 
+ # Driver Code Starts.
 
-    def sort_this_list(self, lst):
-        lst.sort(key=self.transform)
+def validate(original, order):
+    char_map = {}
+    for word in original:
+        for ch in word:
+            char_map[ch] = 1
 
+    for ch in order:
+        if ch not in char_map:
+            return False
+        del char_map[ch]
 
-if __name__ == '__main__':
-    t = int(input())
-    for _ in range(t):
-        line = input().strip().split()
-        n = int(line[0])
-        k = int(line[1])
+    if char_map:
+        return False
 
-        alien_dict = [x for x in input().strip().split()]
-        duplicate_dict = alien_dict.copy()
-        ob = Solution()
-        order = ob.findOrder(alien_dict, n, k)
-        s = ""
-        for i in range(k):
-            s += chr(97 + i)
-        l = list(order)
-        l.sort()
-        l = "".join(l)
-        if s != l:
-            print(0)
+    char_index = {ch: i for i, ch in enumerate(order)}
+
+    for i in range(len(original) - 1):
+        a, b = original[i], original[i + 1]
+        k, n, m = 0, len(a), len(b)
+        while k < n and k < m and a[k] == b[k]:
+            k += 1
+        if k < n and k < m and char_index[a[k]] > char_index[b[k]]:
+            return False
+        if k != n and k == m:
+            return False
+
+    return True
+
+if __name__ == "__main__":
+    input_data = sys.stdin.read().strip().split("\n")
+    index = 0
+    t = int(input_data[index])
+    index += 1
+    while t > 0:
+        words = input_data[index].split()
+        index += 1
+        original = words[:]
+
+        order = Solution.findOrder(words)
+
+        if order == "":
+            print("\"\"")
         else:
-            x = sort_by_order(order)
-            x.sort_this_list(duplicate_dict)
-
-            if duplicate_dict == alien_dict:
-                print(1)
-            else:
-                print(0)
+            print("true" if validate(original, order) else "false")
+        print("~")
+        t -= 1
 
 # } Driver Code Ends
