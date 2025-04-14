@@ -1,13 +1,4 @@
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-import sys
-
-
-# } Driver Code Ends
-
 #User function Template for python3
-from collections import deque
 class Solution:
     def findOrder(words):
         # code here
@@ -49,7 +40,13 @@ class Solution:
         return "".join(topo) if len(topo)==len(st) else ""
 
 #{ 
- # Driver Code Starts.
+ # Driver Code Starts
+#Initial Template for Python 3
+import sys
+from collections import deque
+
+#Position this line where user code will be pasted.
+
 
 def validate(original, order):
     char_map = {}
@@ -78,6 +75,7 @@ def validate(original, order):
             return False
 
     return True
+
 
 if __name__ == "__main__":
     input_data = sys.stdin.read().strip().split("\n")
