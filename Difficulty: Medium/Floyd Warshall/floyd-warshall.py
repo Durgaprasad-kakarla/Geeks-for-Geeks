@@ -1,12 +1,12 @@
 #User function template for Python
 
 class Solution:
-	def shortest_distance(self, matrix):
+	def floydWarshall(self, matrix):
 		#Code here
         n=len(matrix)
         for i in range(n):
             for j in range(n):
-                if matrix[i][j]==-1:
+                if matrix[i][j]==10**8:
                     matrix[i][j]=float("inf")
         for via in range(n):
             for i in range(n):
@@ -15,9 +15,8 @@ class Solution:
         for i in range(n):
             for j in range(n):
                 if matrix[i][j]==float('inf'):
-                    matrix[i][j]=-1
+                    matrix[i][j]=10**8
         return matrix
-        
 
 #{ 
  # Driver Code Starts
@@ -31,7 +30,7 @@ if __name__ == '__main__':
         for _ in range(n):
             matrix.append(list(map(int, input().split())))
         obj = Solution()
-        obj.shortest_distance(matrix)
+        obj.floydWarshall(matrix)
         for _ in range(n):
             for __ in range(n):
                 print(matrix[_][__], end=" ")
