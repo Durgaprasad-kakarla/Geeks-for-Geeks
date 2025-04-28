@@ -1,27 +1,26 @@
 #User function Template for python3
-
+import heapq
 from typing import List
-from collections import deque
+ 
 class Solution:
     
     def minimumMultiplications(self, arr : List[int], start : int, end : int) -> int:
         # code here
-        queue=deque()
-        queue.append([0,start])
+        n=len(arr)
         dist=[float('inf')]*100000
         dist[start]=0
-        while queue:
-            # print(queue)
-            d,node=queue.popleft()
+        heap=[]
+        heapq.heappush(heap,[0,start])
+        while heap:
+            d,node=heapq.heappop(heap)
             if node==end:
                 return d
             for i in arr:
-                mod=(node*i)%(100000)
-                if dist[mod]>d+1:
-                    dist[mod]=d+1
-                    queue.append([dist[mod],mod])
-        return -1
-
+                ele=(i*node)%100000
+                if dist[ele]>d+1:
+                    dist[ele]=d+1
+                    heapq.heappush(heap,[d+1,ele])
+        return dist[end] if dist[end]!=float('inf') else -1
 
 #{ 
  # Driver Code Starts
@@ -34,4 +33,5 @@ if __name__=="__main__":
         start, end = list(map(int,input().split()))
         obj=Solution()
         print(obj.minimumMultiplications(arr, start, end))
+        print("~")
 # } Driver Code Ends
