@@ -5,12 +5,12 @@ class Solution:
         #code here
         dist=[float('inf')]*V
         dist[src]=0
-        for i in range(V-1):
+        for i in range(V):
             for u,v,wt in edges:
-                if dist[u]+wt<dist[v]:
+                if dist[v]>dist[u]+wt:
                     dist[v]=dist[u]+wt
         for u,v,wt in edges:
-            if dist[u]+wt<dist[v]:
+            if dist[v]>dist[u]+wt:
                 return [-1]
         for i in range(V):
             if dist[i]==float('inf'):
