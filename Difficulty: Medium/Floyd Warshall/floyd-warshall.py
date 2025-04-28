@@ -3,21 +3,22 @@
 class Solution:
 	def floydWarshall(self, matrix):
 		#Code here
-        n=len(matrix)
+        n,m=len(matrix),len(matrix[0])
         for i in range(n):
-            for j in range(n):
+            for j in range(m):
                 if matrix[i][j]==10**8:
-                    matrix[i][j]=float("inf")
+                    matrix[i][j]=float('inf')
+        
         for via in range(n):
             for i in range(n):
                 for j in range(n):
-                    matrix[i][j]=min(matrix[i][j],matrix[i][via]+matrix[via][j])
+                    if matrix[i][j]>matrix[i][via]+matrix[via][j]:
+                        matrix[i][j]=matrix[i][via]+matrix[via][j]
         for i in range(n):
-            for j in range(n):
+            for j in range(m):
                 if matrix[i][j]==float('inf'):
                     matrix[i][j]=10**8
         return matrix
-
 #{ 
  # Driver Code Starts
 #Initial template for Python
