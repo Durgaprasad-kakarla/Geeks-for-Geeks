@@ -1,42 +1,39 @@
 #User function Template for python3
 
 '''
-Structure of node
-
 # Node Class
 class Node:
     def __init__(self, data):   # data -> value stored in node
         self.data = data
         self.next = None
-
 '''
 class Solution:
     # Function to find the length of a loop in the linked list.
     def countNodesInLoop(self, head):
-        #Your code here
+        #code here
         slow,fast=head,head
-        flag=0
+        start=None
         while fast and fast.next:
             slow=slow.next
             fast=fast.next.next
             if slow==fast:
-                flag=1
-                break 
-        if flag==0:
-            return 0 
-        while head!=slow:
-            head=head.next
-            slow=slow.next 
-        starting=head 
-        temp=starting.next 
+                start=slow
+                break
+        if start==None:
+            return 0
+        temp=head
+        while temp!=start:
+            temp=temp.next
+            start=start.next
+        starting=temp
         cnt=1
+        temp=starting.next
         while temp!=starting:
-            temp=temp.next 
+            temp=temp.next
             cnt+=1
         return cnt
-        
-
-
+    #   4 2 1 5 8 3 1
+      
 #{ 
  # Driver Code Starts
 class Node:
@@ -86,6 +83,7 @@ if __name__ == "__main__":
         ob = Solution()
         res = ob.countNodesInLoop(head)
         print(res)
+        print("~")
         index += 2
 
 # } Driver Code Ends
