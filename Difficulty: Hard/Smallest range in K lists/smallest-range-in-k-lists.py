@@ -2,31 +2,22 @@ import heapq
 class Solution:
     def findSmallestRange(self, arr):
         # code here
-        n = len(arr)
-        k = len(arr[0])
-    
-        heap = []
-        max_val = float('-inf')
-    
+        n,k=len(arr),len(arr[0])
+        max_val=-float('inf')
+        heap=[]
         for i in range(n):
-            val = arr[i][0]
-            heapq.heappush(heap, (val, i, 0))
-            max_val = max(max_val, val)
-    
-        best_range = [float('-inf'), float('inf')]
-    
+            heapq.heappush(heap,[arr[i][0],i,0])
+            max_val=max(max_val,arr[i][0])
+        best=[-float('inf'),float('inf')]
         while True:
-            min_val, row, idx = heapq.heappop(heap)
-            if max_val - min_val < best_range[1] - best_range[0]:
-                best_range = [min_val, max_val]
-            if idx + 1 == len(arr[row]):
+            min_val,row,ind=heapq.heappop(heap)
+            if best[1]-best[0]>max_val-min_val:
+                best=[min_val,max_val]
+            if ind+1>=len(arr[row]):
                 break
-            next_val = arr[row][idx + 1]
-            heapq.heappush(heap, (next_val, row, idx + 1))
-            max_val = max(max_val, next_val)
-    
-        return best_range
-
+            heapq.heappush(heap,[arr[row][ind+1],row,ind+1])
+            max_val=max(max_val,arr[row][ind+1])
+        return best
 #{ 
  # Driver Code Starts
 # Initial Template for Python 3
