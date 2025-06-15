@@ -1,44 +1,21 @@
-#User function Template for python3
-
-
 class Solution:
 
     def aggressiveCows(self, stalls, k):
-        def max_minDistance(arr,x):
-            cnt,n=1,len(arr)
-            ele=arr[0]
+        # your code here
+        def assign_stalls(arr,ele):
+            n=len(arr)
+            prev,cnt=arr[0],1
             for i in range(1,n):
-                if arr[i]-ele>=x:
+                if arr[i]-prev>=ele:
                     cnt+=1
-                    ele=arr[i]
+                    prev=arr[i]
             return cnt
         stalls.sort()
-        l,r=0,stalls[-1]-stalls[0]
+        l,r=0,max(stalls)-min(stalls)
         while l<=r:
             mid=(l+r)//2
-            if max_minDistance(stalls,mid)<k:
-                r=mid-1
-            else:
+            if assign_stalls(stalls,mid)>=k:
                 l=mid+1
+            else:
+                r=mid-1
         return r
-        
-
-
-
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-import bisect
-#Main
-if __name__ == '__main__':
-    t = int(input())
-    while t:
-        t -= 1
-        A = [int(x) for x in input().strip().split()]
-        nd = [int(x) for x in input().strip().split()]
-        D = nd[0]
-        ob = Solution()
-        ans = ob.aggressiveCows(A, D)
-        print(ans)
-        print("~")
-# } Driver Code Ends
