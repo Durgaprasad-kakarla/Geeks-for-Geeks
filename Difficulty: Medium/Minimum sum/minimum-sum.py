@@ -1,36 +1,39 @@
-#User function Template for python3
-from collections import Counter
 class Solution:
     def minSum(self, arr):
         # code here
-        arr.sort(reverse=True)
-        n = len(arr)
-        while arr[n - 1] == 0:
-            n -= 1
-        output = []
-        carry = 0
-        for i in range(1, n, 2):
-            carry, r = divmod(arr[i - 1] + arr[i] + carry, 10)
-            output.append(str(r))
-        if n & 1:  # if odd
-            carry += arr[n - 1]
-        if carry:
-            output.append(str(carry))
-        return "".join(reversed(output))
-
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-
-if __name__ == '__main__':
-    tc = int(input())
-    while tc > 0:
-        arr = list(map(int, input().strip().split()))
-        ob = Solution()
-        ans = ob.minSum(arr)
-        print(ans)
-        tc -= 1
-
-        print("~")
-
-# } Driver Code Ends
+        n=len(arr)
+        dic={i:0 for i in range(10)}
+        for i in range(n):
+            dic[arr[i]]+=1
+        even,odd,curr=[],[],True
+        for i in range(10):
+            cnt=dic[i]
+            if cnt%2==0:
+                even+=[i]*(cnt//2)
+                odd+=[i]*(cnt//2)
+            else:
+                if curr:
+                    even+=[i]*(cnt//2+1)
+                    odd+=[i]*(cnt//2)
+                else:
+                    even+=[i]*(cnt//2)
+                    odd+=[i]*(cnt//2+1)
+                curr=not curr
+        st=""
+        carry=0
+        i,j=len(even)-1,len(odd)-1
+        while i>=0 or j>=0 or carry:
+            sm=carry
+            if i>=0:
+                sm+=even[i]
+            if j>=0:
+                sm+=odd[j]
+            if sm>9:
+                st+=str(sm%10)
+                carry=1
+            else:
+                st+=str(sm%10)
+                carry=0
+            i-=1
+            j-=1
+        return st[::-1].lstrip('0')
