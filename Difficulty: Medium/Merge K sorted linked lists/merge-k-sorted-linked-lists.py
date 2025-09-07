@@ -1,15 +1,42 @@
-#User function Template for python3
 '''
 class Node:
-    def _init_(self,x):
+    def _init_(self, x):
         self.data = x
         self.next = None
 '''
 import heapq
 class Solution:
+    def merge_two_lists(self,head1,head2):
+        if head1.data<head2.data:
+            curr,head=head1,head1
+            temp1,temp2=head1.next,head2
+        else:
+            curr,head=head2,head2
+            temp2,temp1=head2.next,head1
+        while temp1 and temp2:
+            if temp1.data<temp2.data:
+                next_node=temp1.next
+                curr.next=temp1
+                curr=temp1
+                temp1=next_node
+            else:
+                next_node=temp2.next
+                curr.next=temp2
+                curr=temp2
+                temp2=next_node
+        while temp1:
+            next_node=temp1.next
+            curr.next=temp1
+            curr=temp1
+            temp1=next_node
+        while temp2:
+            next_node=temp2.next
+            curr.next=temp2
+            curr=temp2
+            temp2=next_node
+        return head
     def mergeKLists(self, lists):
         # code here
-        # return head of merged list
         heap=[]
         for head in lists:
             temp=head
@@ -24,56 +51,3 @@ class Solution:
             temp.next=Node(heapq.heappop(heap))
             temp=temp.next
         return head
-
-#{ 
- # Driver Code Starts
-import heapq
-
-
-class Node:
-
-    def __init__(self, x):
-        self.data = x
-        self.next = None
-
-    # To compare nodes in the heap
-    def __lt__(self, other):
-        return self.data < other.data
-
-
-def printList(node):
-    while node:
-        print(node.data, end=" ")
-        node = node.next
-    print()
-
-
-def main():
-    t = int(input())
-    for _ in range(t):
-        n = int(input())
-        lists = []
-        for _ in range(n):
-            values = list(map(int, input().split()))
-            head = None
-            temp = None
-            for value in values:
-                newNode = Node(value)
-                if head is None:
-                    head = newNode
-                    temp = head
-                else:
-                    temp.next = newNode
-                    temp = temp.next
-            lists.append(head)
-
-        sol = Solution()
-        head = sol.mergeKLists(lists)
-        printList(head)
-        print("~")
-
-
-if __name__ == "__main__":
-    main()
-
-# } Driver Code Ends
