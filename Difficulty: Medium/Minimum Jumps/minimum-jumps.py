@@ -1,39 +1,21 @@
 class Solution:
 	def minJumps(self, arr):
 	    # code here
-        n=len(arr)
-        if arr[0]==0:
-            return -1
-        if arr[0]>=n-1:
-            return 1
-        dp=[0]*n
-        i,cnt=1,1
-        while i<n:
-            ind=-1
-            maxi=-float('inf')
-            for j in range(i,i+arr[i-1]):
-                if maxi<arr[j]+j:
-                    maxi=arr[j]+j
-                    ind=j
-            if maxi==-float('inf'):
-                return -1
-            if maxi>=n-1:
-                return cnt+1
-            i=ind+1
-            cnt+=1
-        return cnt
-        
-
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-if __name__ == '__main__':
-    T = int(input())
-    for i in range(T):
-        # n = int(input())
-        Arr = [int(x) for x in input().split()]
-        ob = Solution()
-        ans = ob.minJumps(Arr)
-        print(ans)
-        print("~")
-# } Driver Code Ends
+	    n=len(arr)
+	    i,cnt=0,1
+	    while i<n:
+	        maxi,max_ind=-float('inf'),-1
+	        if i+arr[i]>=n-1:
+	            return 1
+	        for j in range(i+1,i+arr[i]+1):
+	            if maxi<(j+arr[j]):
+	                maxi=j+arr[j]
+	                max_ind=j
+	       # print(max_ind,maxi,cnt)
+	        if maxi>=n-1:
+	            return cnt+1
+	        if max_ind==-1:
+	            return -1
+	        i=max_ind
+	        cnt+=1
+	    return cnt
