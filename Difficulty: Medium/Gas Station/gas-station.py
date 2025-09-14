@@ -1,6 +1,6 @@
 class Solution:
     def startStation(self, gas, cost):
-        # Your code here
+        #  code here
         gc = [g - c for g, c in zip(gas, cost)]
         
         start, running, n, cnt = -1, 0, len(gas), 0
@@ -20,22 +20,3 @@ class Solution:
                 break
         return -1 if cnt != n else start
  
-
-
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-import io
-import sys
-
-if __name__ == '__main__':
-    test_cases = int(input())
-    for cases in range(test_cases):
-        gas = list(map(int, input().strip().split()))
-        cost = list(map(int, input().strip().split()))
-        ob = Solution()
-        ans = ob.startStation(gas, cost)
-        print(ans)
-        print("~")
-
-# } Driver Code Ends
