@@ -1,8 +1,8 @@
 class Solution:
-    def nextLargerElement(self, arr):
+    def nextGreater(self, arr):
         # code here
-        stack=arr[::-1].copy()
         n=len(arr)
+        stack=arr[::-1].copy()
         next_greater=[-1]*n
         for i in range(n-1,-1,-1):
             while stack and stack[-1]<=arr[i]:
