@@ -1,41 +1,30 @@
 #User function template for Python
 
 class Solution:
-	def floydWarshall(self, matrix):
+	def floydWarshall(self, dist):
 		#Code here
-        n,m=len(matrix),len(matrix[0])
-        for i in range(n):
-            for j in range(m):
-                if matrix[i][j]==10**8:
-                    matrix[i][j]=float('inf')
-        
-        for via in range(n):
-            for i in range(n):
-                for j in range(n):
-                    if matrix[i][j]>matrix[i][via]+matrix[via][j]:
-                        matrix[i][j]=matrix[i][via]+matrix[via][j]
-        for i in range(n):
-            for j in range(m):
-                if matrix[i][j]==float('inf'):
-                    matrix[i][j]=10**8
-        return matrix
-#{ 
- # Driver Code Starts
-#Initial template for Python
-
-if __name__ == '__main__':
-    T = int(input())
-    for i in range(T):
-        n = int(input())
-        matrix = []
-        for _ in range(n):
-            matrix.append(list(map(int, input().split())))
-        obj = Solution()
-        obj.floydWarshall(matrix)
-        for _ in range(n):
-            for __ in range(n):
-                print(matrix[_][__], end=" ")
-            print()
-        print("~")
-
-# } Driver Code Ends
+		n=len(dist)
+		for i in range(n):
+		    for j in range(n):
+		        if dist[i][j]==10**8:
+		            dist[i][j]=float('inf')
+		for via in range(n):
+		    for i in range(n):
+		        for j in range(n):
+		            dist[i][j]=min(dist[i][j],dist[i][via]+dist[via][j])
+		for i in range(n):
+		    for j in range(n):
+		        if dist[i][j]==float('inf'):
+		            dist[i][j]=10**8
+		return dist
+		            
+		            
+		            
+		            
+		            
+		            
+		            
+		            
+		            
+		            
+		            
