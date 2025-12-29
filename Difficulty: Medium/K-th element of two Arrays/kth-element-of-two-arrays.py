@@ -1,30 +1,18 @@
-#User function Template for python3
-
-
+import heapq
 class Solution:
-
-    def kthElement(self, nums1,nums2, k):
-        n,m=len(nums1),len(nums2)
-        if n>m:
-            return self.kthElement(nums2,nums1,k)
-        l = max(0, k - m)
-        r = min(k,n)
-        while l<=r:
-            mid1=(l+r)//2
-            mid2=(k-mid1)
-            l1,l2,r1,r2=-float('inf'),-float('inf'),float('inf'),float('inf')
-            if mid1<n:
-                r1=nums1[mid1]
-            if mid2<m:
-                r2=nums2[mid2]
-            if mid1-1>=0:
-                l1=nums1[mid1-1]
-            if mid2-1>=0:
-                l2=nums2[mid2-1]
-            if l1>r2:
-                r=mid1-1
-            elif l2>r1:
-                l=mid1+1
+    def kthElement(self, a, b, k):
+        # code here
+        n,m=len(a),len(b)
+        heap=[]
+        heapq.heappush(heap,[a[0],0,'a'])
+        heapq.heappush(heap,[b[0],0,'b'])
+        while heap and k>0:
+            ele,ind,arr=heapq.heappop(heap)
+            k-=1
+            if arr=='a':
+                if ind+1<n:
+                    heapq.heappush(heap,[a[ind+1],ind+1,arr])
             else:
-                return  max(l1,l2)
-        return -1
+                if ind+1<m:
+                    heapq.heappush(heap,[b[ind+1],ind+1,arr])
+        return ele
