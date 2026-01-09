@@ -1,14 +1,23 @@
-from collections import defaultdict
 class Solution:
     def countAtMostK(self, arr, k):
         # Code here
-        n,start,dic,tot=len(arr),0,defaultdict(int),0
+        n=len(arr)
+        dic={}
+        start,tot=0,0
         for i in range(n):
-            dic[arr[i]]+=1
-            while start<n and len(dic)>k:
-                dic[arr[start]]-=1
-                if dic[arr[start]]==0:
-                    del dic[arr[start]]
+            while start<n and len(dic)<=k:
+                if arr[start] in dic:
+                    dic[arr[start]]+=1
+                else:
+                    if len(dic)<k:
+                        dic[arr[start]]=1
+                    else:
+                        break
                 start+=1
-            tot+=(i-start+1)
+            # print(start,i,dic)
+            tot+=(start-i)
+            dic[arr[i]]-=1
+            if dic[arr[i]]==0:
+                del dic[arr[i]]
         return tot
+        
