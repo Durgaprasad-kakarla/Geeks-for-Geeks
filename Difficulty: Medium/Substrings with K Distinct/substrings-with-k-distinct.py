@@ -1,20 +1,22 @@
 class Solution:
     def countSubstr (self, s, k):
         # Code here
-        def count_subarrays_atleastK(s,k):
+        def count_substr_atleast_k(s,k):
             n=len(s)
-            dic,start,tot={},0,0
+            dic={}
+            start=tot=0
             for i in range(n):
-                if s[i] in dic:
-                    dic[s[i]]+=1
-                else:
-                    dic[s[i]]=1
-                while start<n and len(dic)>=k:
-                    tot+=(n-i)
-                    dic[s[start]]-=1
-                    if dic[s[start]]==0:
-                        del dic[s[start]]
+                while start<n and len(dic)<k:
+                    if s[start] in dic:
+                        dic[s[start]]+=1
+                    else:
+                        dic[s[start]]=1
                     start+=1
-                # print(dic,tot)
+                if len(dic)==k:
+                    tot+=(n-start+1)
+                dic[s[i]]-=1
+                if dic[s[i]]==0:
+                    del dic[s[i]]
             return tot
-        return count_subarrays_atleastK(s,k)-count_subarrays_atleastK(s,k+1)
+        return count_substr_atleast_k(s,k)-count_substr_atleast_k(s,k+1)
+                
