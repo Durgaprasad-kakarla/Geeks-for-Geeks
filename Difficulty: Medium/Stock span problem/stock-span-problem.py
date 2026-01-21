@@ -1,34 +1,15 @@
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-
-# } Driver Code Ends
 class Solution:
     def calculateSpan(self, arr):
-        #write code here
-        stack=[]
+        # code here
         n=len(arr)
-        stocks=[1]*n
+        stack=[]
+        ans=[]
         for i in range(n):
-            cnt=0
+            tot=1
             while stack and stack[-1][0]<=arr[i]:
-                cnt+=stack[-1][1]
-                stack.pop()
-            stocks[i]+=cnt
-            stack.append([arr[i],stocks[i]])
-        return stocks
-
-#{ 
- # Driver Code Starts.
-#Initial Template for Python 3
-
-if __name__ == "__main__":
-    t = int(input())
-    while t > 0:
-        arr = list(map(int, input().split()))
-        ob = Solution()
-        ans = ob.calculateSpan(arr)
-        print(*ans)
-        print("~")
-        t -= 1
-# } Driver Code Ends
+                tot+=stack.pop()[1]
+            stack.append([arr[i],tot])
+            ans.append(stack[-1][1])
+        return ans
+        
+        
