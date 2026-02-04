@@ -1,6 +1,9 @@
 class Solution:
-    def getLastMoment(self, n, l, r):
+    def getLastMoment(self, n, left, right):
         # code here
-        a = max(l) if l else 0
-        b = max(n-i for i in r) if r else 0
-        return max(a,b)
+        max_time=0
+        for i in left:
+            max_time=max(max_time,i)
+        for i in right:
+            max_time=max(max_time,n-i)
+        return max_time
