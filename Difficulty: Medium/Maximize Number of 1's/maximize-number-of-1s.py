@@ -12,5 +12,3 @@ class Solution:
                 start+=1
             max_len=max(max_len,i-start+1)
         return max_len
-            
-        
