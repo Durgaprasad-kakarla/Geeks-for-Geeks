@@ -1,7 +1,6 @@
 class Solution:
     def minCost(self, heights, cost):
         # code here
-        n=len(heights)
         def compute_cost(h):
             r = 0
             for i in range(len(heights)):
