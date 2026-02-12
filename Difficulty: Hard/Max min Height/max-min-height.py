@@ -1,34 +1,36 @@
 class Solution():
     def maxMinHeight(self, arr, k, w):
         # code here
-        def func(arr,ele):
-            n=len(arr)
-            cnt,add=0,-1
-            tot=0
-            pref=[0]*(n+1)
+        def check_max_height(target):
+            temp = [0] * (n + 1)
+            operations = 0
+            curr_add = 0
+            
             for i in range(n):
-                if arr[i]<ele:
-                    if i==0:
-                        pref[i]+=(ele-arr[i])
-                        pref[min(i+w,n)]-=(ele-arr[i])
-                        tot+=(ele-arr[i])
-                    else:
-                        pref[i]+=pref[i-1]
-                        sm=arr[i]+pref[i]
-                        if sm<ele:
-                            pref[i]+=(ele-sm)
-                            pref[min(i+w,n)]-=(ele-sm)
-                            tot+=(ele-sm)
-                else:
-                    pref[i]+=pref[i-1]
-            # print(pref)
-            return tot
-        l,r=min(arr),sum(arr)+max(arr)
+                curr_add += temp[i]
+                
+                current_height = arr[i] + curr_add
+                
+                if current_height < target:
+                    needed = target - current_height
+                    operations += needed
+                    
+                    if operations > k:
+                        return False
+                    
+                    curr_add += needed
+                    if i + w < n:
+                        temp[i + w] -= needed
+            
+            return True
+        n=len(arr)
+        l,r,ans=min(arr),sum(arr)+k,-1
         while l<=r:
             mid=(l+r)//2
-            # print(func(arr,mid),mid)
-            if func(arr,mid)<=k:
+            # print(mid,check_max_height(mid))
+            if check_max_height(mid):
+                ans=mid
                 l=mid+1
             else:
                 r=mid-1
-        return r
+        return ans
