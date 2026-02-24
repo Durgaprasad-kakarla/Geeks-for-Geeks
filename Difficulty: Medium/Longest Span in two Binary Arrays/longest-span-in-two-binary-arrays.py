@@ -1,13 +1,21 @@
 class Solution:
-    def longestCommonSum(self, a1, a2):
-        #Code here.
-        n=len(a1)
-        dic={0:-1}
-        sm,maxi=0,0
+    def equalSumSpan(self, a1, a2):
+        # code here
+        n = len(a1)
+        
+        prefix_sum = 0
+        max_len = 0
+        first_occurrence = {}
+        
         for i in range(n):
-            sm+=a1[i]-a2[i]
-            if sm in dic:
-                maxi=max(maxi,i-dic[sm])
+            prefix_sum += (a1[i] - a2[i])
+            
+            if prefix_sum == 0:
+                max_len = i + 1
+            
+            if prefix_sum in first_occurrence:
+                max_len = max(max_len, i - first_occurrence[prefix_sum])
             else:
-                dic[sm]=i
-        return maxi
+                first_occurrence[prefix_sum] = i
+        
+        return max_len
