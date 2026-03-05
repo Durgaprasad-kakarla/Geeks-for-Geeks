@@ -2,13 +2,13 @@ class Solution:
     def longestKSubstr(self, s, k):
         # code here
         n=len(s)
-        dic,start,cnt,maxi={},0,0,-float('inf')
+        dic={}
+        start,maxi=0,-float('inf')
         for i in range(n):
             if s[i] in dic:
                 dic[s[i]]+=1
             else:
                 dic[s[i]]=1
-                cnt+=1
             while start<n and len(dic)>k:
                 dic[s[start]]-=1
                 if dic[s[start]]==0:
