@@ -1,5 +1,5 @@
 class Solution:
-    def smallestWindow(self, s, p):
+    def minWindow(self, s, p):
         # code here
         n,m=len(s),len(p)
         dic={}
