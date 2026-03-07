@@ -1,18 +1,19 @@
 class Solution:
     def noOfWays(self, m,n,x):
         # code here
-        def find_ways(ind,target):
+        def dice_throws(ind,x):
+            if x<0:
+                return 0
             if ind==0:
-                if target==0:
+                if x==0:
                     return 1
                 return 0
-            if dp[ind][target]!=-1:
-                return dp[ind][target]
+            if dp[ind][x]!=-1:
+                return dp[ind][x]
             cnt=0
             for i in range(1,m+1):
-                if target>=i:
-                    cnt+=find_ways(ind-1,target-i)
-            dp[ind][target]=cnt
+                cnt+=dice_throws(ind-1,x-i)
+            dp[ind][x]=cnt
             return cnt
-        dp=[[-1 for i in range(x+1)] for j in range(n+1)]
-        return find_ways(n,x)
+        dp=[[-1 for _ in range(x+1)] for _ in range(n+1)]
+        return dice_throws(n,x)
