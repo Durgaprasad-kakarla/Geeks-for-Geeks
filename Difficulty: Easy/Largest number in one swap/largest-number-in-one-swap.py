@@ -1,15 +1,19 @@
 class Solution:
     def largestSwap(self, s):
-        #code here 3044 4043
-        maxi,max_ind,zero_ind='',-1,-1
+        #code here
         n=len(s)
-        for i in range(n-1,-1,-1):
-            if maxi<s[i]:
-                maxi=s[i]
-                max_ind=i
-        lst=list(s)
+        dic={}
         for i in range(n):
-            if s[i]<maxi and max_ind>0:
-                lst[i],lst[max_ind]=lst[max_ind],lst[i]
+            dic[s[i]]=i
+        flag,lst=0,list(s)
+        for i in range(n):
+            curr=int(s[i])
+            for j in range(10,curr,-1):
+                if str(j) in dic and int(s[i])<j and i<dic[str(j)]:
+                    flag=1
+                    ind,i=dic[str(j)],i
+                    lst[i],lst[ind]=lst[ind],lst[i]
+                    break
+            if flag==1:
                 break
         return "".join(lst)
