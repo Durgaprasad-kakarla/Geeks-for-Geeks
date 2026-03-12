@@ -1,16 +1,25 @@
-from collections import deque
 class Solution:
-    def kBitFlips(self, nums, k):
+    def kBitFlips(self, arr, k):
         # code here
-        queue=deque()
-        tot_operations=0
         n=len(arr)
-        for i in range(n):
-            while queue and i>queue[0]+k-1:
-                queue.popleft()
-            if (nums[i]+len(queue))%2==0:
-                if i+k>n:
-                    return -1
-                tot_operations+=1
-                queue.append(i)
-        return tot_operations
+        pref=[0]*(n+2)
+        cnt=0
+        for i in range(1,n+1):
+            pref[i]+=pref[i-1]
+            if pref[i]%2==0:
+                if arr[i-1]==0:
+                    pref[i]+=1
+                    if i+k>n+1:
+                        return -1
+                    pref[i+k]-=1
+                    cnt+=1
+            else:
+                if arr[i-1]==1:
+                    pref[i]+=1
+                    if i+k>n+1:
+                        return -1
+                    pref[i+k]-=1
+                    cnt+=1
+                    
+        return cnt
+        
