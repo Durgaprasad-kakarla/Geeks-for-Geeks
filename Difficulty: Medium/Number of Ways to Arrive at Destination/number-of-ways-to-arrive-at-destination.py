@@ -1,23 +1,23 @@
 class Solution:
-    def countPaths(self, n, edges):
+    def countPaths(self, V, edges):
         # code here
-        dist=[float('inf')]*n 
-        adj=[[] for i in range(n)]
+        adj=[[] for _ in range(V)]
         for u,v,wt in edges:
             adj[u].append([v,wt])
             adj[v].append([u,wt])
+        dist=[float('inf') for _ in range(V)]
+        ways=[0 for _ in range(V)]
+        dist[0],ways[0]=0,1
         heap=[]
-        heapq.heappush(heap,[0,0])
-        dist[0]=0
-        ways=[0]*n
-        ways[0]=1
+        heapq.heappush(heap,(0,0))
         while heap:
             d,node=heapq.heappop(heap)
             for i,wt in adj[node]:
-                if wt+d<dist[i]:
-                    dist[i]=wt+dist[node]
+                if dist[i]>d+wt:
+                    dist[i]=d+wt
                     ways[i]=ways[node]
-                    heapq.heappush(heap,[dist[i],i])
-                elif wt+d==dist[i]:
+                    heapq.heappush(heap,(dist[i],i))
+                elif dist[i]==d+wt:
                     ways[i]+=ways[node]
-        return ways[n-1]%(10**9+7)
+        return ways[V-1]
+        
