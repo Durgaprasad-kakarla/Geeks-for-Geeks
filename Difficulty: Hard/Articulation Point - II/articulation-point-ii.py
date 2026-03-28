@@ -1,69 +1,41 @@
 class Solution:
-    def articulationPoints(self, n, connections):
+    def articulationPoints(self, V, edges):
         # code here
-        global timer
-        timer=0
-        def dfs(node, parent, vis, tin, low, mark, adj):
+        def dfs(node,parent):
             global timer
-            vis[node] = True
-            tin[node] = low[node] = timer
-            timer += 1
-            child = 0
-    
-            for it in adj[node]:
-                if it == parent:
+            vis[node]=1
+            tin[node]=low[node]=timer
+            timer+=1
+            child=0
+            for i in adj[node]:
+                if i==parent:
                     continue
-                if not vis[it]:
-                    dfs(it, node, vis, tin, low, mark, adj)
-                    low[node] = min(low[node], low[it])
-                    if low[it] >= tin[node] and parent != -1:
-                        mark[node] = True
-                    child += 1
+                if not vis[i]:
+                    dfs(i,node)
+                    child+=1
+                    low[node]=min(low[i],low[node])
+                    if low[i]>=tin[node] and parent!=-1:
+                        articulation_mark[node]=1
                 else:
-                    low[node] = min(low[node], tin[it])
-            
-            if parent == -1 and child > 1:
-                mark[node] = True
-        adj=[[] for i in range(n)]
-        for u,v in connections:
+                    low[node]=min(low[node],tin[i])
+            if child>1 and parent==-1:
+                articulation_mark[node]=1
+        tin=[0]*V
+        low=[0]*V
+        vis=[0]*V
+        articulation_mark=[0]*V
+        adj=[[] for _ in range(V)]
+        for u,v in edges:
             adj[u].append(v)
             adj[v].append(u)
-        vis = [False] * n
-        tin = [0] * n
-        low = [0] * n
-        mark = [False] * n
-
-        for i in range(n):
+        global timer
+        timer=0
+        for i in range(V):
             if not vis[i]:
-                dfs(i, -1, vis, tin, low, mark, adj)
-
-        ans = [i for i in range(n) if mark[i]]
-        return ans if ans else [-1]
-
-
-#{ 
- # Driver Code Starts
-import sys
-
-sys.setrecursionlimit(int(1e7))
-
-
-def main():
-    tc = int(input())
-    for _ in range(tc):
-        V = int(input())
-        E = int(input())
-        edges = []
-        for _ in range(E):
-            u, v = map(int, input().split())
-            edges.append([u, v])
-        obj = Solution()
-        ans = obj.articulationPoints(V, edges)
-        ans.sort()
-        print(" ".join(map(str, ans)))
-        print("~")
-
-
-if __name__ == "__main__":
-    main()
-# } Driver Code Ends
+                dfs(i,-1)
+        ans=[]
+        for i in range(V):
+            if articulation_mark[i]:
+                ans.append(i)
+        return [-1] if not ans else ans
+                    
