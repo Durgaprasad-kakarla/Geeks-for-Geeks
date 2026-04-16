@@ -1,46 +1,35 @@
-#User function template for Python
 class Solution:
     def myAtoi(self, s):
-        # Code here
+        # code here
+        s=s.strip(' ')
+        sign=''
+        if s[0]=='+' or s[0]=='-':
+            sign=s[0]
+            s=s[1:]
+        # print(sign)
+        s=s.lstrip('0')
         n=len(s)
-        i=0
-        while i<n:
-            if s[i]==' ' or s[i]=='0':
-                i+=1
+        ans=''
+        for i in range(n):
+            if s[i].isdigit():
+                ans+=s[i]
             else:
                 break
-        sign=''
-        if i<n and (s[i]=='-' or s[i]=='+'):
-            sign=s[i]
-            i+=1
-        if i<n and s[i].isdigit():
-            start=i
-            while i<n and s[i].isdigit():
-                i+=1
-            if sign=='' or sign=='+':
-                if int(s[start:i])>(2**31-1):
-                    return 2**31-1
-                else:
-                    return int(s[start:i])
-            else:
-                if -1*int(s[start:i])<(-2**31):
-                    return -2**31
-                else:
-                    return -1*int(s[start:i])
-        else:
+        if ans=='':
             return 0
-
-
-#{ 
- # Driver Code Starts
-#Initial template for Python
-
-if __name__ == '__main__':
-    t = int(input())
-    for i in range(t):
-        s = input()
-        ob = Solution()
-        print(ob.myAtoi(s))
-        print("~")
-
-# } Driver Code Ends
+        # print(ans)
+        if sign!='':
+            if sign=='+':
+                if int(ans)>2147483647:
+                    return 2147483647
+                return ans
+            else:
+                # print(sign,ans)
+                if -1*int(ans)<-2147483648:
+                    return -2147483648
+                return sign+ans
+        else:
+            if int(ans)>2147483647:
+                    return 2147483647
+            return ans
+        
