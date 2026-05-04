@@ -1,6 +1,4 @@
-#User function Template for python3
-
 class Solution:
-    def isPallindrome(self, N):
+    def isBinaryPalindrome(self, n):
         # code here
-        return int(bin(N)[2:]==bin(N)[2:][::-1])
+        return bin(n)[2:]==bin(n)[2:][::-1]
