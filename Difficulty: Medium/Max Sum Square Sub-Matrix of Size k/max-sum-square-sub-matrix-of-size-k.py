@@ -1,0 +1,20 @@
+class Solution:
+    def maximumSum(self, mat, k):
+        # code here
+        n,m=len(mat),len(mat[0])
+        pref=[[0 for _ in range(m+1)] for _ in range(n+1)]
+        for i in range(1,n+1):
+            for j in range(1,m+1):
+                pref[i][j]+=pref[i-1][j]+pref[i][j-1]-pref[i-1][j-1]+mat[i-1][j-1]
+        # print(pref)
+        def query(l1,r1,l2,r2):
+            l1,l2,r1,r2=l1+1,l2+1,r1+1,r2+1
+            # print(pref[l2][r2],pref[l1][r2],pref[l2][r1],pref[l1-1][r1-1])
+            return pref[l2][r2]-pref[l1-1][r2]-pref[l2][r1-1]+pref[l1-1][r1-1]
+        maxi=-float('inf')
+        for i in range(n):
+            for j in range(m):
+                row,col=i+k-1,j+k-1
+                if row<n and col<m:
+                    maxi=max(maxi,query(i,j,row,col))
+        return maxi
