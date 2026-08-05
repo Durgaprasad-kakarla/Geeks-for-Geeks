@@ -1,35 +1,35 @@
 class TrieNode:
     def __init__(self):
-        self.chars=[None]*26
-        self.flag=False
+        self.links=[None]*26
+        self.end=False
     def contains_key(self,ch):
-        return self.chars[ord(ch)-97] is not None
-    def get_char(self,ch):
-        return self.chars[ord(ch)-97]
-    def set_char(self,ch,node):
-        self.chars[ord(ch)-97]=node
+        return self.links[ord(ch)-ord('a')] is not None
+    def put_key(self,ch,node):
+        self.links[ord(ch)-ord('a')]=node
+    def get_key(self,ch):
+        return self.links[ord(ch)-ord('a')]
     def set_end(self):
-        self.flag=True
+        self.end=True
+    def get_end(self):
+        return self.end
 class Trie:
     def __init__(self):
         self.root=TrieNode()
-        self.cnt=0
+        self.tot=0
     def insert(self,word):
-        n=len(word)
-        for i in range(n):
-            node=self.root
-            for j in range(i,n):
-                ch=word[j]
-                if not node.contains_key(ch):
-                    node.set_char(ch,TrieNode())
-                    self.cnt+=1
-                node=node.get_char(ch)
-            node.set_end=True
-    
+        node=self.root
+        for ch in word:
+            if not node.contains_key(ch):
+                node.put_key(ch,TrieNode())
+                self.tot+=1
+            node=node.get_key(ch)
+        node.set_end()
+
+
 class Solution:
-    def countSubs(self, s):
+    def countSubs(self, word):
         # code here
         t=Trie()
-        n=len(s)
-        t.insert(s)
-        return t.cnt
+        for i in range(len(word)):
+            t.insert(word[i:])
+        return (t.tot)
